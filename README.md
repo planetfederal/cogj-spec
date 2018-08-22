@@ -23,7 +23,7 @@ The problem is pervasive:
 The concept is simple (and should sound familiar): 
 
 - The first 10k of the file is reserved for a JSON header, which contains:
-- - metadata about the entire file
-- - the byte range of an extended header (optional)
-- - byte ranges of groups of vector features, each encoded as a valid GeoJSON document
+-- metadata about the entire file
+-- the byte range of an extended header (optional)
+-- byte ranges of groups of vector features, each encoded as a valid GeoJSON document
 - The rest of the file is composed of the content described above
