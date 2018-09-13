@@ -26,9 +26,9 @@ The collections are arranged back-to-back in a single file with the first 10k of
 
 ## Demo 
 
-2 files on S3 which both contain the same data [Cadastral.json](https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json) and [Cadastral.json.coj](https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json.coj) both about 160mb containing the cadastral data in Harford Country, Maryland.
+This demo shows 2 files on S3 which both contain the same data [Cadastral.json](https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json) and [Cadastral.json.coj](https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json.coj) in different formats. Both are about 160mb and contain the same cadastral data in Harford Country, Maryland.
 
-I have a simple OpenLayers app which lets me load either file with the click of a button. Running this in Chrome with network throttled to Fast 3G setting to emphasize the point -- and because thats the reality for many.  
+The demo shows a simple OpenLayers app which lets you load either file with the click of a button. Running this in Chrome with network throttled to Fast 3G setting to emphasize the point -- and because thats the reality for many.  
 
 [![Demo Video](/img/coj.png)](https://www.youtube.com/watch?v=YMM2sGZHgoA)
 
