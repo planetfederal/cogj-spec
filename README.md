@@ -32,7 +32,15 @@ I have a simple OpenLayers app which lets me load either file with the click of 
 
 [![Demo Video](/img/coj.png)](https://www.youtube.com/watch?v=YMM2sGZHgoA)
 
+### How hard is this to implement?
+Reading the header: 
+```javascript
+fetch('https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json.coj',{headers: {"Range":"bytes=0-10239"}})
+        .then(response=>{return response.json();})
+```
+
 
 ### What about the overhead?
 
 While there is certainly some overhead related to the metadata and additional feature collection boilerplate, the impact is negligable. While the COJ version of this test data does have a few extra curly braces, the actual file size is smaller because the JSON was not pretty printed. What this means is that the overhead of whitespace is larger than efficiently subdeviding the file. For our test data, the COJ is about 10mb smaller.
+
