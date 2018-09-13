@@ -22,7 +22,7 @@ The problem exists in all common vector formats:
 
 The concept is simple: a traditional GeoJSON file is broken into *n* number of feature collections, each of which is independently a valid geojson document. The collections can be made using any sorting or ordering algorithm which makes sense for the given data (temporal, spatial, etc.).
 
-The collections are arranged back-to-back in a single file with the first 10k of the file reserved for metadata.  The [metadata header] (/spec/header.json) contains metadata about the file as a whole as well as an array of collection metadata.  
+The collections are arranged back-to-back in a single file with the first 10k of the file reserved for metadata.  The [metadata header](./spec/header_schema.json) contains metadata about the file as a whole as well as an array of collection metadata.  
 
 ## Demo 
 
