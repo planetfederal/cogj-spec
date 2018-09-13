@@ -30,7 +30,9 @@ The collections are arranged back-to-back in a single file with the first 10k of
 
 I have a simple OpenLayers app which lets me load either file with the click of a button. Running this in Chrome with network throttled to Fast 3G setting to emphasize the point -- and because thats the reality for many.  
 
-[Demo Videos](img/cog.png)
+[![Demo Video](/img/coj.jpg)](https://www.youtube.com/watch?v=YMM2sGZHgoA)
+
+
 
 
 ### What about the overhead?
