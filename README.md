@@ -33,8 +33,6 @@ I have a simple OpenLayers app which lets me load either file with the click of 
 [![Demo Video](/img/coj.png)](https://www.youtube.com/watch?v=YMM2sGZHgoA)
 
 
-
-
 ### What about the overhead?
 
- To be fair I have to admit the COJ version is slightly smaller because of the lack of pretty printing the JSON, but only ~5% smaller. 
+While there is certainly some overhead related to the metadata and additional feature collection boilerplate, the impact is negligable. While the COJ version of this test data does have a few extra curly braces, the actual file size is smaller because the JSON was not pretty printed. What this means is that the overhead of whitespace is larger than efficiently subdeviding the file. For our test data, the COJ is about 10mb smaller.
