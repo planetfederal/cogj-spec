@@ -9,7 +9,7 @@
     "features",
     "name",
     "bbox",
-    "tiles"
+    "collections"
   ],
   "properties": {
     "size": {
@@ -118,11 +118,11 @@
       }
     },
     "tiles": {
-      "$id": "#/properties/tiles",
+      "$id": "#/properties/collections",
       "type": "array",
-      "title": "The Tiles Schema",
+      "title": "The Collections Schema",
       "items": {
-        "$id": "#/properties/tiles/items",
+        "$id": "#/properties/collections/items",
         "type": "object",
         "title": "The Items Schema",
         "required": [
@@ -133,7 +133,7 @@
         ],
         "properties": {
           "start": {
-            "$id": "#/properties/tiles/items/properties/start",
+            "$id": "#/properties/collections/items/properties/start",
             "type": "integer",
             "title": "The Start Schema",
             "default": 0,
@@ -142,7 +142,7 @@
             ]
           },
           "size": {
-            "$id": "#/properties/tiles/items/properties/size",
+            "$id": "#/properties/collections/items/properties/size",
             "type": "integer",
             "title": "The Size Schema",
             "default": 0,
@@ -151,11 +151,11 @@
             ]
           },
           "bbox": {
-            "$id": "#/properties/tiles/items/properties/bbox",
+            "$id": "#/properties/collections/items/properties/bbox",
             "type": "array",
             "title": "The Bbox Schema",
             "items": {
-              "$id": "#/properties/tiles/items/properties/bbox/items",
+              "$id": "#/properties/collections/items/properties/bbox/items",
               "type": "number",
               "title": "The Items Schema",
               "default": 0.0,
@@ -168,7 +168,7 @@
             }
           },
           "features": {
-            "$id": "#/properties/tiles/items/properties/features",
+            "$id": "#/properties/collections/items/properties/features",
             "type": "integer",
             "title": "The Features Schema",
             "default": 0,
