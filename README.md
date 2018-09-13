@@ -32,7 +32,10 @@ I have a simple OpenLayers app which lets me load either file with the click of 
 
 [![Demo Video](/img/coj.png)](https://www.youtube.com/watch?v=YMM2sGZHgoA)
 
-### How hard is this to implement? 1 line of Javascript 
+### How hard is this to implement? 
+
+*Just about a single line of JavaScript
+
 Reading the header: 
 ```javascript
 fetch('https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json.coj',{headers: {"Range":"bytes=0-10239"}})
