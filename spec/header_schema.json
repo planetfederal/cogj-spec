@@ -1,0 +1,183 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/boundlessgeo/coj-spec/spec/header_schema.json",
+  "type": "object",
+  "title": "Cloud Optimized GeoJSON schema",
+  "required": [
+    "size",
+    "features",
+    "name",
+    "bbox",
+    "tiles"
+  ],
+  "properties": {
+    "size": {
+      "$id": "#/properties/size",
+      "type": "integer",
+      "title": "The Size Schema",
+      "default": 0,
+      "examples": [
+        102429060
+      ]
+    },
+    "features": {
+      "$id": "#/properties/features",
+      "type": "integer",
+      "title": "The Features Schema",
+      "default": 0,
+      "examples": [
+        124672
+      ]
+    },
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "title": "The Name Schema",
+      "default": "",
+      "examples": [
+        "Buildings"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "description": {
+      "$id": "#/properties/description",
+      "type": "string",
+      "title": "The Description Schema",
+      "default": "",
+      "examples": [
+        "Building data from Harford County, MD"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "version": {
+      "$id": "#/properties/version",
+      "type": "string",
+      "title": "The Version Schema",
+      "default": "",
+      "examples": [
+        "1.0.0"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "published": {
+      "$id": "#/properties/published",
+      "type": "string",
+      "title": "The Published Schema",
+      "default": "",
+      "examples": [
+        "2018-09-13T15:05:16+00:00"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "extended_metadata": {
+      "$id": "#/properties/extended_metadata",
+      "type": "object",
+      "title": "The Extended_metadata Schema",
+      "default": null,
+      "required": [
+        "start",
+        "size"
+      ],
+      "properties": {
+        "start": {
+          "$id": "#/properties/extended_metadata/properties/start",
+          "type": "integer",
+          "title": "The Start Schema",
+          "default": 0,
+          "examples": [
+            52462
+          ]
+        },
+        "size": {
+          "$id": "#/properties/extended_metadata/properties/size",
+          "type": "integer",
+          "title": "The Size Schema",
+          "default": 0,
+          "examples": [
+            14575
+          ]
+        }
+      }
+    },
+    "bbox": {
+      "$id": "#/properties/bbox",
+      "type": "array",
+      "title": "The Bbox Schema",
+      "items": {
+        "$id": "#/properties/bbox/items",
+        "type": "number",
+        "title": "The Items Schema",
+        "default": 0.0,
+        "examples": [
+          -76.57139851406845,
+          39.39485141810742,
+          -76.08362813450836,
+          39.72564001999409
+        ]
+      }
+    },
+    "tiles": {
+      "$id": "#/properties/tiles",
+      "type": "array",
+      "title": "The Tiles Schema",
+      "items": {
+        "$id": "#/properties/tiles/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "start",
+          "size",
+          "bbox",
+          "features"
+        ],
+        "properties": {
+          "start": {
+            "$id": "#/properties/tiles/items/properties/start",
+            "type": "integer",
+            "title": "The Start Schema",
+            "default": 0,
+            "examples": [
+              10240
+            ]
+          },
+          "size": {
+            "$id": "#/properties/tiles/items/properties/size",
+            "type": "integer",
+            "title": "The Size Schema",
+            "default": 0,
+            "examples": [
+              327634
+            ]
+          },
+          "bbox": {
+            "$id": "#/properties/tiles/items/properties/bbox",
+            "type": "array",
+            "title": "The Bbox Schema",
+            "items": {
+              "$id": "#/properties/tiles/items/properties/bbox/items",
+              "type": "number",
+              "title": "The Items Schema",
+              "default": 0.0,
+              "examples": [
+                -76.14459943195337,
+                39.47754856857909,
+                -76.08362813450836,
+                39.518897143814925
+              ]
+            }
+          },
+          "features": {
+            "$id": "#/properties/tiles/items/properties/features",
+            "type": "integer",
+            "title": "The Features Schema",
+            "default": 0,
+            "examples": [
+              329
+            ]
+          }
+        }
+      }
+    }
+  }
+}
