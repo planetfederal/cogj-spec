@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CoJ viewer</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v5.1.3/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/build/ol.js"></script>
+    <style>
+        #loader{ position: absolute;top: 80px; left:20px;}
+        #regloader{ position: absolute;top: 100px; left:20px;}
+        #map{ position: absolute; top: 0px; left:0px; width: 100%; height: 100%;}
+    </style>
+</head>
+<body>
+<div id="map" class="map"></div>
+<div id="loader"><input type="button" onclick="loadCoj()" value="Load CoJ"/> </div>
+<div id="regloader"><input type="button" onclick="loadReg()" value="Load Regular"/> </div>
+<script type="application/javascript">
+
+
+    let bboxSource = new ol.source.Vector({projection: 'EPSG:4326'});
+
+    let cojSource = new ol.source.Vector({projection: 'EPSG:4326', format: ol.format.GeoJSON});
+
+    let regsource = new ol.source.Vector({projection: 'EPSG:4326', format: ol.format.GeoJSON});
+
+    let cojStyle = new ol.style.Style({
+        text: new ol.style.Text({
+            color: 'yellow',
+            fill: new ol.style.Fill({color: 'yellow'}),
+            stroke: new ol.style.Stroke({color: 'black',width: 2}),
+            placement: 'point',
+            align: 'center',
+            font: '18px sans-serif',
+        }),
+        color: 'red',
+        fill: new ol.style.Fill({color: 'red'}),
+        stroke: new ol.style.Stroke({color: 'red',width: 1})
+    });
+
+
+    function getStyle(feature) {
+        return new ol.style.Style({
+            text: new ol.style.Text({
+                color: 'yellow',
+                fill: new ol.style.Fill({color: 'yellow'}),
+                stroke: new ol.style.Stroke({color: 'yellow'}),
+                placement: 'point',
+                align: 'center',
+                font: '20px sans-serif',
+                text: feature.get('label')
+            }),
+            stroke: new ol.style.Stroke({
+                color: 'yellow',
+                width: 2
+            }),
+            fill: new ol.style.Fill({color: 'rgba(237, 255, 40, 0.19)'}),
+        });
+    }
+
+    let map = new ol.Map({
+        layers: [
+
+            new ol.layer.Tile({
+            source: new ol.source.XYZ({
+                url: 'http://api.boundlessgeo.io/v1/basemaps/mapbox/satellite-streets/{z}/{x}/{y}.png?apikey=MTIzND9UaGF0cyB0aGUga2luZCBvZiB0aGluZyBhbiBpZGlvdCB3b3VsZCBoYXZlIG9uIGhpcyBsdWdnYWdlIQ'
+            })
+        }),
+            new ol.layer.Vector({source: bboxSource, style: getStyle}),
+            new ol.layer.Vector({source: cojSource, style: getStyle}),
+            new ol.layer.Vector({source: regsource, style: getStyle})
+        ],
+        target: 'map',
+        view: new ol.View({
+            center: [0, 0],
+            zoom: 2
+        })
+    });
+
+
+    let metadata;
+    function loadCoj(){
+        console.log("Fetching COJ Header...")
+        fetch('https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json.coj',{headers: {"Range":"bytes=0-10239"}})
+        .then(response=>{return response.json();}).then(json=>{
+            console.log("Done!");
+            metadata = json;
+            map.getView().fit(ol.proj.transformExtent(metadata.Bbox, 'EPSG:4326', 'EPSG:3857'));
+
+            for (i in metadata.Tiles){
+                t = metadata.Tiles[i];
+                mainPoly = ol.geom.Polygon.fromExtent(ol.proj.transformExtent(t.Bbox, 'EPSG:4326', 'EPSG:3857'))
+
+                var feature = new ol.Feature({
+                    id: i,
+                    size: t.Size,
+                    start: t.Start,
+                    geometry: mainPoly,
+                    label: t.Features+" features",
+                });
+                bboxSource.addFeature(feature);
+
+
+            }
+        }).catch(error => console.error("Error fetching headers: ", error));
+
+    }
+
+    function loadReg(){
+
+        fetch('https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json')
+                .then(response => {return response.json()}).then(function(json){
+            feats = new ol.format.GeoJSON().readFeatures(json,{dataProjection: 'EPSG:4326', featureProjection:'EPSG:3857'});
+            regsource.addFeatures(feats);
+            map.getView().fit(regsource.getExtent());
+
+        }).catch(err => {console.error(err)});
+
+    }
+
+
+
+    select = new ol.interaction.Select({condition: ol.events.condition.doubleclick});
+    map.addInteraction(select);
+    select.on('select',function(e){
+
+        f = e.target.getFeatures().getArray()[0];
+        if(f == undefined){return;}
+        console.log("Loading features for tile "+f.get("id"))
+
+
+        start = f.get('start')
+        end = start + f.get('size')
+        console.log("Start: "+ start+" end: "+end);
+        fetch('https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json.coj',{headers: {"Range":"bytes="+start+"-"+end}})
+                .then(response => {return response.json()}).then(function(json){
+
+                    feats = new ol.format.GeoJSON().readFeatures(json,{dataProjection: 'EPSG:4326', featureProjection:'EPSG:3857'});
+                    cojSource.addFeatures(feats);
+                    console.log(cojSource.getFeatures().length);
+
+        }).catch(err => {console.error(err)});
+        bboxSource.removeFeature(f);
+        });
+
+
+
+</script>
+
+</body>
+</html>
