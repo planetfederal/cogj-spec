@@ -4,10 +4,10 @@
   "$id": "https://github.com/boundlessgeo/coj-spec/spec/header_schema.json",
   "type": "object",
   "title": "Cloud Optimized GeoJSON schema",
+  "additionalProperties": true,
   "required": [
     "size",
     "features",
-    "name",
     "bbox",
     "collections"
   ],
@@ -108,6 +108,9 @@
         "$id": "#/properties/bbox/items",
         "type": "number",
         "title": "The Items Schema",
+        "minItems":4,
+        "maxItems": 4,
+        "additionalItems": false,
         "default": 0.0,
         "examples": [
           -76.57139851406845,
@@ -124,6 +127,7 @@
       "items": {
         "$id": "#/properties/collections/items",
         "type": "object",
+        "description": "a list of collections contained in this file",
         "title": "The Items Schema",
         "required": [
           "start",
@@ -137,6 +141,7 @@
             "type": "integer",
             "title": "The Start Schema",
             "default": 0,
+            "description": "the byte in the file where the collection starts",
             "examples": [
               10240
             ]
@@ -144,6 +149,7 @@
           "size": {
             "$id": "#/properties/collections/items/properties/size",
             "type": "integer",
+            "description": "the size of the collection in bytes",
             "title": "The Size Schema",
             "default": 0,
             "examples": [
@@ -158,6 +164,10 @@
               "$id": "#/properties/collections/items/properties/bbox/items",
               "type": "number",
               "title": "The Items Schema",
+              "description": "the WGS84 bounding box of the feature collection",
+              "minItems": 4,
+              "maxItems": 4,
+              "additionalItems": false,
               "default": 0.0,
               "examples": [
                 -76.14459943195337,
@@ -167,10 +177,31 @@
               ]
             }
           },
+          "name": {
+            "$id": "#/properties/collections/items/properties/name",
+            "type": "string",
+            "title": "The Name Schema",
+            "default": "",
+            "examples": [
+              "Buildings"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "description": {
+            "$id": "#/properties/collections/items/properties/description",
+            "type": "string",
+            "title": "The Description Schema",
+            "default": "",
+            "examples": [
+              "A subset of data from from Harford County, MD -- between main street and brodway"
+            ],
+            "pattern": "^(.*)$"
+          },          
           "features": {
             "$id": "#/properties/collections/items/properties/features",
             "type": "integer",
             "title": "The Features Schema",
+            "description": "the number of features in the collection",
             "default": 0,
             "examples": [
               329

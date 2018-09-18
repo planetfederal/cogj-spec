@@ -26,6 +26,8 @@
         -76.08362813450836,
         39.518897143814925
       ],
+      "name": "Majors Choice",
+      "description": "Buildings from the majors choice subdivision",
       "features": 329
     },
     {
@@ -37,6 +39,8 @@
         -76.08362813450836,
         39.560245719050755
       ],
+      "name": "Aberdeen, MD",
+      "description": "buildings within the city limits of Aberdeen, MD in Harford County",
       "features": 5826
     }
   ]
