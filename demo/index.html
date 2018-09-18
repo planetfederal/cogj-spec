@@ -134,7 +134,7 @@
         start = f.get('start')
         end = start + f.get('size')
         console.log("Start: "+ start+" end: "+end);
-        fetch('https://s3.amazonaws.com/cogeojson/Cadastral.json.coj',{headers: {"Range":"bytes="+start+"-"+end}})
+        fetch('https://s3.amazonaws.com/cogeojson/Cadastral.geojson.coj',{headers: {"Range":"bytes="+start+"-"+end}})
                 .then(response => {return response.json()}).then(function(json){
 
                     feats = new ol.format.GeoJSON().readFeatures(json,{dataProjection: 'EPSG:4326', featureProjection:'EPSG:3857'});
