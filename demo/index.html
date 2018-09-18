@@ -83,22 +83,22 @@
     let metadata;
     function loadCoj(){
         console.log("Fetching COJ Header...")
-        fetch('https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json.coj',{headers: {"Range":"bytes=0-10239"}})
+        fetch('https://s3.amazonaws.com/cogeojson/Cadastral.geojson.coj',{headers: {"Range":"bytes=0-9999"}})
         .then(response=>{return response.json();}).then(json=>{
             console.log("Done!");
             metadata = json;
-            map.getView().fit(ol.proj.transformExtent(metadata.Bbox, 'EPSG:4326', 'EPSG:3857'));
+            map.getView().fit(ol.proj.transformExtent(metadata.bbox, 'EPSG:4326', 'EPSG:3857'));
 
-            for (i in metadata.Tiles){
-                t = metadata.Tiles[i];
-                mainPoly = ol.geom.Polygon.fromExtent(ol.proj.transformExtent(t.Bbox, 'EPSG:4326', 'EPSG:3857'))
+            for (i in metadata.collections){
+                t = metadata.collections[i];
+                mainPoly = ol.geom.Polygon.fromExtent(ol.proj.transformExtent(t.bbox, 'EPSG:4326', 'EPSG:3857'))
 
                 var feature = new ol.Feature({
                     id: i,
-                    size: t.Size,
-                    start: t.Start,
+                    size: t.size,
+                    start: t.start,
                     geometry: mainPoly,
-                    label: t.Features+" features",
+                    label: t.features+" features",
                 });
                 bboxSource.addFeature(feature);
 
@@ -110,7 +110,7 @@
 
     function loadReg(){
 
-        fetch('https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json')
+        fetch('https://s3.amazonaws.com/cogeojson/Cadastral.geojson')
                 .then(response => {return response.json()}).then(function(json){
             feats = new ol.format.GeoJSON().readFeatures(json,{dataProjection: 'EPSG:4326', featureProjection:'EPSG:3857'});
             regsource.addFeatures(feats);
@@ -128,13 +128,13 @@
 
         f = e.target.getFeatures().getArray()[0];
         if(f == undefined){return;}
-        console.log("Loading features for tile "+f.get("id"))
+        console.log("Loading features for collection "+f.get("id"))
 
 
         start = f.get('start')
         end = start + f.get('size')
         console.log("Start: "+ start+" end: "+end);
-        fetch('https://s3.amazonaws.com/tomsorflow/coj/Cadastral.json.coj',{headers: {"Range":"bytes="+start+"-"+end}})
+        fetch('https://s3.amazonaws.com/cogeojson/Cadastral.json.coj',{headers: {"Range":"bytes="+start+"-"+end}})
                 .then(response => {return response.json()}).then(function(json){
 
                     feats = new ol.format.GeoJSON().readFeatures(json,{dataProjection: 'EPSG:4326', featureProjection:'EPSG:3857'});
