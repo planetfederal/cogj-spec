@@ -10,7 +10,7 @@ The goals are to be:
 
 ## Why?
 
-As cloud technologies become the norm, browers rule the desktop and disks are rarely local -- we need to think differently about how we store data. Having opaque files on remote services requires you to download the entire file before being able to make use of it. Just as COG changed this for raster, COGJ aims to do the same for vector.
+ Having opaque files on remote services requires you to download the entire file before being able to make use of it. Just as COG changed this for raster, COGJ aims to do the same for vector.
 
 The problem exists in all common vector formats:
 - Sqlite based (MBTiles, GeoPackage)
@@ -18,11 +18,30 @@ The problem exists in all common vector formats:
 - GeoJSON and GML require custom parsing to avoid XML or JSON encoding issues with partial reads
 - Vector services (databases or WFS) are great for subsetting data but require running a service or lambda 
 
-## How does it work?
+## Benefits 
+- **Reduced infrastructure requirements:** efficient data acces without so much as a lambda (serverless)
+- **Reduced bandwidth consumption:** load just the parts you need from even the most massive files 
+- **Reduce client load:** allows browsers and disadvanged clients to work with datasets that would previously overwelm them
+- **Simplification:** single, self describing file
+- **Universal ease:** read efficiently from an HTTP(S) connection or filesystem 
+
+## Drawbacks (to be fair)
+- **Read Optimized:** it can be authored in a text editor, but isn't easy. Realistically should be written by software.
+- **YAGF:** yet another geo format
+
+## Sweet spots
+- Large, read only, public datasets (i.e. Goverments, NGOs) 
+- Disadvangtaged users, slow connections or mobile devices (e.g. Disaster relief)
+- Aggegating datasets into a portable web friendly package
+- Batch processing/viewing very large amounts of data (i.e. ML input or output)
+
+# How does it work?
 
 The concept is simple: a traditional GeoJSON file is broken into *n* number of feature collections, each of which is independently a valid geojson document. The collections can be made using any sorting or ordering algorithm which makes sense for the given data (temporal, spatial, etc.).
 
-The collections are arranged back-to-back in a single file with the first 10k of the file reserved for metadata.  The [metadata header](./spec/header_schema.json) contains metadata about the file as a whole as well as an array of collection metadata.  
+![COGJ vs GeoJSON](/img/geojson_optimize.png)
+
+The collections are arranged back-to-back in a single file with the first 10k of the file reserved for metadata.  The [metadata header](./spec/readme.md) contains metadata about the file as a whole as well as an array of collection metadata.  
 
 ## Demo 
 
@@ -33,8 +52,6 @@ The demo shows a simple OpenLayers app which lets you load either file with the 
 [![Demo Video](/img/coj.png)](https://www.youtube.com/watch?v=YMM2sGZHgoA)
 
 ### How hard is this to implement? 
-
-*Just about a single line of JavaScript
 
 Reading the header: 
 ```javascript
