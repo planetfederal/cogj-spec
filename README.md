@@ -4,7 +4,7 @@
 COGJ is a dirivative of GeoJSON that is optimized for network storage and efficient data access over HTTP using range reads. It was inspired by the [Cloud Optimized GeoTiff](https://www.cogeo.org/) spec and is envisioned to be a vector  counterpart.
 
 The goals are to be: 
-- Simple -->  HTTP(S)
+- Simple -->  HTTP(S) 
 - Flexible --> just enough spec with room to move
 - Democratic --> open, human readable, and easy to implement
 
@@ -26,8 +26,9 @@ The problem exists in all common vector formats:
 - **Universal ease:** read efficiently from an HTTP(S) connection or filesystem 
 
 ## Drawbacks (to be fair)
-- **Read Optimized:** it can be authored in a text editor, but isn't easy. Realistically should be written by software.
+- **Read Optimized:** can be authored in a text editor, but isn't easy. Realistically should be written by software.
 - **YAGF:** yet another geo format
+- **Range reads:** are not supported everywhere 
 
 ## Sweet spots
 - Large, read only, public datasets (i.e. Goverments, NGOs) 
@@ -55,7 +56,7 @@ The demo shows a simple OpenLayers app which lets you load either file with the 
 
 Reading the header: 
 ```javascript
-fetch('https://s3.amazonaws.com/cogeojson/Cadastral.json.coj',{headers: {"Range":"bytes=0-10239"}})
+fetch('https://s3.amazonaws.com/cogeojson/Cadastral.json.coj',{headers: {"Range":"bytes=0-9999"}})
         .then(response=>{return response.json();})
 ```
 Reading collections of features: 

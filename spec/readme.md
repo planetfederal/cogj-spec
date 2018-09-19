@@ -14,7 +14,7 @@ The following properties are mandatory in the header:
 |:------:|:-----------:|:------:|:--------------:|
 | `size`| no | integer | the size in bytes of the entire file |
 |`features`| no | integer | the number of total features contained in the entire file |
-|`bbox`| no| an array of 4 numbers | the bounding box of the of the entire file in WGS84 ordered as left, bottom, right, top |
+|`bbox`| no| array | the bounding box of the entire dataset as an array of 4 coordinates specified in decimal degrees and WGS84 ordered as left, bottom, right, top |
 |`collections`|no| an array of `collection` objects | each object describes a FeatureCollection contained in this file |
 |`name`| yes | string |a short name for this dataset |
 |`description`| yes | string |a textual desciption of this dataset |
@@ -27,9 +27,9 @@ The `collection` object contains the following properties:
 
 | Name | Optional | Type | Meaning |
 |:------:|:-----------:|:------:|:--------------:|
-| `start`| no| integer | the first byte of the collection in the file |
+|`start`| no| integer | the first byte of the collection in the file |
 |`size` | no | integer | the size of the collection in bytes |
-|`bbox`| no| an array of 4 numbers | the bounding box of the of the entire file in WGS84 ordered as left, bottom, right, top |
+|`bbox`| no| array | the bounding box of the collecttion as an array of 4 coordinates specified in decimal degrees and WGS84 ordered as left, bottom, right, top |
 |`features`| no | integer | the number of features in this collection |
 |`name`| yes | string |a short name for this dataset |
 |`description`| yes | string |a textual desciption of this dataset |
@@ -55,5 +55,5 @@ The content of the byte range specified by the `extended_metadata` object should
 
 ## Header Padding 
 
-As  the header will almost never be exactly 10,000 bytes the header should be padded to that limit using spaces ( UTF8 `0x0020`
+As the header JSON will rarely be exactly 10,000 bytes, the remainder of the length should be padded using spaces (UTF8 `0x0020`) so that the size is exact. 
 
