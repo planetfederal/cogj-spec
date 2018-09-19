@@ -42,7 +42,17 @@ The concept is simple: a traditional GeoJSON file is broken into *n* number of f
 
 ![COGJ vs GeoJSON](/img/geojson_optimize.png)
 
-The collections are arranged back-to-back in a single file with the first 10k of the file reserved for metadata.  The [metadata header](./spec/readme.md) contains metadata about the file as a whole as well as an array of collection metadata.  
+The collections are arranged back-to-back in a single file with the first 10k of the file reserved for metadata.  The [metadata header](./spec/readme.md) contains metadata about the file as a whole as well as an array of collection metadata.
+
+In practice, a networked client would:
+
+1. Perform a HTTP GET request specifying the first 10k of the file
+2. Parse the header and examine the metadata to determine which collections to load 
+3. Use collection metadata to build another HTTP GET range request for the desired collections 
+4. Pass the response to any too that handles GeoJSON 
+
+The same flow would apply to the file on a disk -- just replace HTTP GET range requests with `seek` and `read` commands. 
+
 
 ## Demo 
 
