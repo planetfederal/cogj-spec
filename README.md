@@ -1,7 +1,7 @@
 # COGJ: Cloud Optimized GeoJSON
 
 ## What?
-COGJ is a dirivative of GeoJSON that is optimized for network storage and efficient data access over HTTP using range reads. It was inspired by the [Cloud Optimized GeoTiff](https://www.cogeo.org/) spec and is envisioned to be a vector storage counterpart.
+COGJ is a dirivative of GeoJSON that is optimized for network storage and efficient data access over HTTP using range reads. It was inspired by the [Cloud Optimized GeoTiff](https://www.cogeo.org/) spec and is envisioned to be a vector  counterpart.
 
 The goals are to be: 
 - Simple -->  HTTP(S)
