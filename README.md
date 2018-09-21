@@ -34,7 +34,7 @@ The problem exists in all common vector formats:
 - Large, read only, public datasets (i.e. Goverments, NGOs) 
 - Disadvangtaged users, slow connections or mobile devices (e.g. Disaster relief)
 - Aggregating datasets into a portable web friendly package
-- Batch processing/viewing very large amounts of data (i.e. ML input or output)
+- Batch processing/viewing very large amounts of data (e.g. ML input or output)
 
 # How does it work?
 
@@ -80,5 +80,5 @@ Reading collections of features:
 
 ### What about the overhead?
 
-While there is certainly some overhead related to the metadata and additional feature collection boilerplate, the impact is negligable. While the COGJ version of this test data does have a few extra curly braces, the actual file size is smaller because extra whitespace was removed. What this means is that the overhead of whitespace is larger than efficiently subdeviding the file. For our test data, the COGJ is about 10mb smaller.
+While there is certainly some overhead related to the metadata and additional feature collection boilerplate, the impact is negligable. While the COGJ version of this test data does have a few extra curly braces, the actual file size is smaller because extra whitespace was removed. What this means is that the overhead of whitespace is larger than efficiently subdividing the file. For our test data, the COGJ is about 10mb smaller.
 
