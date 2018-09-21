@@ -56,7 +56,7 @@ The same flow would apply to the file on a disk -- just replace HTTP GET range r
 
 ## Demo 
 
-This demo shows 2 files on S3 which both contain the same data [Cadastral.json](https://s3.amazonaws.com/cogeojson/Cadastral.geojson) and [Cadastral.json.coj](https://s3.amazonaws.com/cogeojson/Cadastral.geojson.coj) in different formats. Both are about 160mb and contain the same cadastral data in Harford Country, Maryland.
+This demo shows 2 files on S3 which both contain the same data [Cadastral.geojson](https://s3.amazonaws.com/cogeojson/Cadastral.geojson) and [Cadastral.geojson.coj](https://s3.amazonaws.com/cogeojson/Cadastral.geojson.coj) in different formats. Both are about 160mb and contain the same cadastral data in Harford Country, Maryland.
 
 The demo shows a simple OpenLayers app which lets you load either file with the click of a button. Running this in Chrome with network throttled to Fast 3G setting to emphasize the point -- and because thats the reality for many.  
 
