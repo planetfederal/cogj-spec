@@ -48,7 +48,7 @@ Both the top level `header` and the `collection` objects allow `additionalProper
 
 ## COGJ Extended header
 
-When dealing with very large datasets which have been devided into large numbers of collections it may be possible for the header to overflow the 10k limit. In such cases the  `extended_metadata` object allows the publisher to specify an additional byte range containing the full metadata header. 
+When dealing with very large datasets which have been divided into large numbers of collections it may be possible for the header to overflow the 10k limit. In such cases the  `extended_metadata` object allows the publisher to specify an additional byte range containing the full metadata header. 
 
 The content of the byte range specified by the `extended_metadata` object should be valid JSON and adhere to the same header schema. 
 
