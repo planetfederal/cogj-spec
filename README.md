@@ -32,7 +32,7 @@ The problem exists in all common vector formats:
 
 ## Sweet spots
 - Large, read only, public datasets (i.e. Goverments, NGOs) 
-- Disadvangtaged users, slow connections or mobile devices (e.g. Disaster relief)
+- Disadvantaged users, slow connections or mobile devices (e.g. Disaster relief)
 - Aggregating datasets into a portable web friendly package
 - Batch processing/viewing very large amounts of data (e.g. ML input or output)
 
