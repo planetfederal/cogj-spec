@@ -1,10 +1,17 @@
 # COGJ Spec 
 
-COGJ defines a header included before an unbounded list of  GeoJSON FeatureCollections. Therefore this spec only defines the header and file structure -- not the FeatureCollection or sub structures of it. For information on those please reference the official [IETF doc](https://tools.ietf.org/html/rfc7946). 
+COGJ defines a header included before an unbounded list of GeoJSON FeatureCollections. Therefore this spec only defines the header and file structure -- not the FeatureCollection or sub structures of it. For information on those please reference the official [IETF doc](https://tools.ietf.org/html/rfc7946). 
 
 
 ## COGJ Header
+
+
+## Separating Feature Collections
+
+Each `FeatureCollection` in the `collection` section should be prefixed with the record separator symbol (UTF8 `0x001E`) and terminated with the line feed symbol (UTF8 `0x000A`).
 The following describes the structure and meaning of properties in the COGJ header.  The header must start at byte 0 of the COGJ file and cannot exceed beyond byte 9999 (0 indexed).  The header must be valid JSON and must adhere to the JSON schema defined [here](./header_schema.json). 
+
+COGJ Headers are a GeoJSON FeatureCollection with extended properties.
 
 ### Mandatory Fields 
 
@@ -23,7 +30,7 @@ The following properties are mandatory in the header:
 |`extended_metadata`| yes | object | an object that points to an range of bytes which allows this header to extend beyond 10k byte size | 
 
 
-The `collection` object contains the following properties:
+The `features` array contains the GeoJSON features with following properties:
 
 | Name | Optional | Type | Meaning |
 |:------:|:-----------:|:------:|:--------------:|
@@ -41,6 +48,7 @@ The `extended_metadata` object contains the following properties:
 | `start`| no| integer | the first byte of the `extended_metadata` in the file |
 |`size` | no | integer | the size of the `extended_metadata` in bytes |
 
+The `geometry` object must be null.
 
 ## Additional Properties
 
@@ -55,5 +63,8 @@ The content of the byte range specified by the `extended_metadata` object should
 
 ## Header Padding 
 
-As the header JSON will rarely be exactly 10,000 bytes, the remainder of the length should be padded using spaces (UTF8 `0x0020`) so that the size is exact. 
+As the header JSON will rarely be exactly 10,000 bytes, the remainder of the length should be padded using spaces (UTF8 `0x0020`) so that the size is exact.
 
+## Separating Feature Collections
+
+Each `FeatureCollection` in the `collection` section should be prefixed with the record separator symbol (UTF8 `0x001E`) and terminated with the line feed symbol (UTF8 `0x000A`).
